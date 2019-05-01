@@ -518,7 +518,7 @@ kernel=u-boot.bin
 ##
 ##     Default 64
 ##
-#gpu_mem=128
+gpu_mem=128
 
 ## gpu_mem_256
 ##     GPU memory allocation in MB for 256MB board revision.

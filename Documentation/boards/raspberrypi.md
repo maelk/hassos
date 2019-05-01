@@ -2,7 +2,7 @@
 
 Supported Hardware:
 
-| Device | Board | 
+| Device | Board |
 |--------|-----------|
 | Raspberry Pi A+/B/B+| rpi |
 | Raspberry Pi Zero | rpi |
@@ -20,12 +20,23 @@ For access to terminal over serial console, add `console=ttyAMA0,115200` to `cmd
 
 ## I2C
 
-Add `dtparam=i2c1=on` and `dtparam=i2c_arm=on` to `config.txt`. After that we create a module file on host with [config usb stick][config] or direct into `/etc/modules-load.d`. 
+Add `dtparam=i2c1=on` and `dtparam=i2c_arm=on` to `config.txt`. After that we create a module file on host with [config usb stick][config] or direct into `/etc/modules-load.d`.
 
 rpi-i2c.conf:
 ```
 i2c-dev
 i2c-bcm2708
+```
+
+## Camera
+
+In order to use the Raspberry Pi camera, the `bcm2835-v4l2` module can be used to expose it and make it available as `/dev/video0`, that can be then used in a Docker container, when specified.
+
+For this, the default Raspberry Pi Firmware is not sufficient, the X one is needed. (`BR2_PACKAGE_RPI_FIRMWARE_X=y` in `buildroot-external/configs/rpiX_defconfig`). Then we create a module file on the host with [config usb stick][config] or directly into `/etc/modules-load.d`.
+
+bcm2835-v4l2.conf:
+```
+bcm2835-v4l2
 ```
 
 ## Tweaks
